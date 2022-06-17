@@ -60,7 +60,7 @@ export function createWebsocketConnection(
 
         clearInterval(tryReconnect);
       };
-    }, 10000);
+    }, 3000);
   };
 
   return {
