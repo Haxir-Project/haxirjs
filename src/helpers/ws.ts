@@ -79,6 +79,7 @@ import {
   onPlayerLeave,
   onPlayerTeamChange,
   onPositionsReset,
+  onRoomLink,
   onStadiumChange,
   onTeamGoal,
   onTeamVictory,
@@ -293,7 +294,7 @@ export function registerEventsActions(
   };
 
   room.onRoomLink = function (url) {
-    return onPositionsReset(websocket, opts, { url });
+    return onRoomLink(websocket, opts, { url });
   };
 
   room.onKickRateLimitSet = function (min, rate, burst, byPlayer) {
