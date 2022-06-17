@@ -1,6 +1,16 @@
+import { parseJson } from "../helpers/json";
 import { debugFunctionHandled } from "../helpers/logger";
-import { EventResponseData } from "../types/events";
+import { EventResponseData } from "../types/haxir";
 import { HaxirOptions } from "../types/haxir";
+
+export const openRoom = (data: EventResponseData, opts?: HaxirOptions) => {
+  const config = parseJson(data.opts.config);
+  const room = (window as any).HBInit(config);
+
+  if (opts?.debug) debugFunctionHandled(sendChat);
+
+  return room;
+};
 
 export const sendChat = (
   room: any,

@@ -1,8 +1,8 @@
 import { createWebsocketConnection } from "./src/websocket";
-import { API_OPEN_ROOM } from "./src/types/events";
+import { API_OPEN_ROOM } from "./src/types/api";
 import { HaxirOptions } from "./src/types/haxir";
-import { registerHandlers } from "./src/helpers/ws";
-import { parseJson } from "./src/helpers/json";
+import { registerApiActions, registerEventsActions } from "./src/helpers/ws";
+import { openRoom } from "./src/actions/api";
 
 function haxir(uri?: string, opts?: HaxirOptions) {
   const websocket = createWebsocketConnection(
@@ -11,10 +11,10 @@ function haxir(uri?: string, opts?: HaxirOptions) {
   );
 
   websocket.on(API_OPEN_ROOM, (data: any) => {
-    const config = parseJson(data.config);
-    const room = (window as any).HBInit(config);
+    const room = openRoom(data, opts);
 
-    registerHandlers(websocket, room, opts);
+    registerApiActions(websocket, room, opts);
+    registerEventsActions(websocket, room, opts);
   });
 }
 
